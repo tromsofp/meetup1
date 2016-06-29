@@ -26,52 +26,61 @@ module Client =
         JQuery.Of("#main").Empty().Ignore
 
         let rvInput = Var.Create ""
-        let rvList = Var.Create List.Empty : Var<list<int * string>>
+        let rvList = Var.Create List.Empty : Var<list<string>>
 
-        let doStuff  (_ : Dom.Element) (_ : Dom.Event) =
+        let addResult  (_ : Dom.Element) (_ : Dom.Event) =
+            let v = rvList.Value
             match rvInput.Value with
-            | IsPalindrome s ->
-                let v = rvList.Value
-                let (n, _) = if v.Length = 0 then (0, "") else v.[v.Length - 1]
-                rvList.Value <- (n+1, s) :: v
-            | HasTFP s ->
-                let v = rvList.Value
-                let (n, _) = v.[v.Length - 1]
-                rvList.Value <- (n+1, s) :: v
+            | IsPalindrome s -> rvList.Value <- s :: v
+            | HasTFP s -> rvList.Value <- s :: v
             | _ -> ()
+
+        let actionText t x =
+            match x with
+            | IsPalindrome s -> t
+            | HasTFP s -> t
+            | _ -> ""
+
+        let resultRows (lst : list<string>) =
+            let n = lst.Length
+            List.zip [1..n] lst
+            |> List.map (fun (x, y) ->
+                tr [
+                    td [text <| string x]
+                    td [text y]
+                ] :> Doc
+            )
 
         IndexTemplate.Main.Doc(
             Body = [
-                h1 [text "Hello TromsoFP!"]
+                h1 [text "TromsoFP: Meetup 1"]
                 p [
                     text "Enter text:"
-                    Doc.Input [on.change doStuff] rvInput
+                    Doc.Input [on.change addResult] rvInput
+                    textView <| rvInput.View.Map (actionText " [Press enter]")
                 ]
+                hr []
                 pAttr [
-                    attr.classDyn <| rvInput.View.Map (fun x ->
-                        match x with
-                        | IsPalindrome s -> "alert alert-danger"
-                        | _ -> ""
-                    )
+                    attr.classDyn <| rvInput.View.Map (actionText "alert alert-danger")
                     ] [
-                    text "You enter:"
+                    text "You enter: "
                     textView <| rvInput.View.Map (fun (x  : string )-> x.ToUpper ())
                 ]
+                hr []
+                h4 [text "Palindromes and such"]
                 div [
                     rvList.View
                     |> Doc.BindView (fun lst ->
-                        tableAttr [
-                            attr.``class`` "table table-striped"
-                            ] ([
-                                tr [th [text "#"]; th [ text "special"]]
-                            ]
-                            @ (lst |>
-                                List.map (fun (x, y) ->
+                        tableAttr
+                            [ attr.``class`` "table table-striped" ] (
+                                [
                                     tr [
-                                        td [text <| string x]
-                                        td [text y]
-                                    ] :> Doc
-                                )))
+                                        th [text "#"]
+                                        th [ text "Result"]
+                                    ]
+                                ]
+                                @ resultRows lst
+                            )
                         )
                 ]
             ]
