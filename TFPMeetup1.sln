@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "UINextApplication2", "UINextApplication2\UINextApplication2.fsproj", "{CCAA889A-0629-4AB6-8440-6DEF9ECDE39A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{54F1E7F4-BDB5-4982-9D59-AED65FE64050}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TFPMeetup1", "TFPMeetup1\TFPMeetup1.fsproj", "{CCAA889A-0629-4AB6-8440-6DEF9ECDE39A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
