@@ -1,4 +1,4 @@
-namespace UINextApplication2
+namespace TromsoFP.Meetup1
 
 open WebSharper
 open WebSharper.JavaScript
