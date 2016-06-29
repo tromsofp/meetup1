@@ -10,8 +10,8 @@ has been commented and slightly reworked for readability.
 #### Prerequisites
 
 ```bash
-sudo apt-get install fsharp
-sudo apt-get install mono-xbuild
+$ sudo apt-get install fsharp
+$ sudo apt-get install mono-xbuild
 ```
 
 #### Build
