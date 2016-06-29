@@ -1,0 +1,5 @@
+source https://www.nuget.org/api/v2/
+framework >= net40
+
+nuget WebSharper 3.5.14.215
+nuget WebSharper.UI.Next 3.5.18.192
