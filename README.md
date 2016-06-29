@@ -17,15 +17,15 @@ sudo apt-get install mono-xbuild
 #### Build
 
 ```bash
-$ .paket/paket.bootstrap.exe
+$ mono .paket/paket.bootstrap.exe
 $ .paket/paket.exe restore
-$ xbuild FTPMeetup1.sln
+$ xbuild TFPMeetup1.sln
 ```
 
 #### Run
 
 ```bash
-$ cd TFTMeetup1
+$ cd TFPMeetup1
 $ xdg-open index.html
 ```
 
