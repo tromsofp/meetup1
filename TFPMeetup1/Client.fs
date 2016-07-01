@@ -34,15 +34,15 @@ module Client = // tell WebSharper to compile the module to JavaScript
         // create reactive, mutable variables
         // reactive variables are observed through views
         let rvInput = Var.Create ""
-        let rvList = Var.Create List.Empty : Var<list<string>>
+        let rvList = ListModel.FromSeq ([] : list<string>)
 
         // if the result is a palindrome or has TromsoFP in it,
         // store it in a reactive list variable
         let addResult  (_ : Dom.Element) (_ : Dom.Event) =
             let v = rvList.Value // read reactive value
             match rvInput.Value with
-            | IsPalindrome s -> rvList.Value <- s :: v // append match to list and update reactive variable
-            | HasTFP s -> rvList.Value <- s :: v
+            | IsPalindrome s -> rvList.Add s
+            | HasTFP s -> rvList.Add s
             | _ -> ()
 
         // generate text response to matching string patterns
@@ -94,7 +94,7 @@ module Client = // tell WebSharper to compile the module to JavaScript
                                     th [ text "Result"]
                                 ]
                             ]
-                            @ resultRows lst // generate list of table rows form lst and append to table
+                            @ resultRows (List.ofSeq lst) // generate list of table rows form lst and append to table
                         )
                     )
             ]
